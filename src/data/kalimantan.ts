@@ -69,6 +69,8 @@ export const kalimantan = [
       { name: "Kabupaten Kutai Kartanegara", type: CityType.REGENCY },
       { name: "Kabupaten Kutai Timur", type: CityType.REGENCY },
       { name: "Kabupaten Mahakam Ulu", type: CityType.REGENCY },
+      { name: "Kabupaten Paser", type: CityType.REGENCY },
+      { name: "Kabupaten Penajam Paser Utara", type: CityType.REGENCY },
       { name: "Kota Balikpapan", type: CityType.CITY },
       { name: "Kota Bontang", type: CityType.CITY },
       { name: "Kota Samarinda", type: CityType.CITY },

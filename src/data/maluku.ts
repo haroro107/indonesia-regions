@@ -9,6 +9,7 @@ export const maluku = [
       { name: "Kabupaten Buru", type: CityType.REGENCY },
       { name: "Kabupaten Buru Selatan", type: CityType.REGENCY },
       { name: "Kabupaten Kepulauan Aru", type: CityType.REGENCY },
+      { name: "Kabupaten Kepulauan Tanimbar", type: CityType.REGENCY },
       { name: "Kabupaten Maluku Barat Daya", type: CityType.REGENCY },
       { name: "Kabupaten Maluku Tengah", type: CityType.REGENCY },
       { name: "Kabupaten Maluku Tenggara", type: CityType.REGENCY },

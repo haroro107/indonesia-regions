@@ -1,6 +1,8 @@
 # @raxza-tech/indonesia-regions
 
-Data wilayah Indonesia (Provinsi & Kota/Kabupaten) lengkap dengan tipe data TypeScript. Sumber data dari BPS (Badan Pusat Statistik).
+Data wilayah Indonesia lengkap: **38 Provinsi** dan **514 Kabupaten/Kota** (416 Kabupaten, 98 Kota) dengan tipe data TypeScript dan indexing berkecepatan tinggi ($O(1)$).
+
+Sumber data resmi mengacu pada **Kemendagri (Keputusan Menteri Dalam Negeri)** dan **BPS (Badan Pusat Statistik)** Indonesia.
 
 ## Install
 
@@ -25,17 +27,22 @@ import {
   getCitiesByProvinceCode
 } from '@raxza-tech/indonesia-regions';
 
-// Mendapatkan semua provinsi
+// Mendapatkan semua provinsi (38 provinsi)
 const provinces = getProvinces();
 console.log(provinces.length); // 38
 
-// Mencari provinsi berdasarkan kode BPS
+// Mencari provinsi berdasarkan kode (O(1) lookup)
 const dki = findProvinceByCode('31');
-console.log(dki.name); // 'DKI Jakarta'
+console.log(dki?.name); // 'DKI Jakarta'
 
 // Mendapatkan kota/kabupaten dalam provinsi
 const dkiCities = getCitiesByProvinceCode('31');
-console.log(dkiCities); // [{ name: 'Kota Jakarta Barat', type: 'CITY' }, ...]
+console.log(dkiCities); 
+// [
+//   { name: 'Kabupaten Administrasi Kepulauan Seribu', type: 'REGENCY' },
+//   { name: 'Kota Jakarta Selatan', type: 'CITY' },
+//   ...
+// ]
 ```
 
 ### Filter Berdasarkan Tipe
@@ -43,45 +50,66 @@ console.log(dkiCities); // [{ name: 'Kota Jakarta Barat', type: 'CITY' }, ...]
 ```typescript
 import { getCitiesOnly, getRegenciesOnly } from '@raxza-tech/indonesia-regions';
 
-// Hanya Kota
-const cities = getCitiesOnly('31'); // DKI Jakarta
+// Semua Kota di Indonesia (98 Kota)
+const allCities = getCitiesOnly();
+console.log(allCities.length); // 98
 
-// Hanya Kabupaten
-const regencies = getRegenciesOnly('32'); // Jawa Barat
+// Semua Kabupaten di Indonesia (416 Kabupaten)
+const allRegencies = getRegenciesOnly();
+console.log(allRegencies.length); // 416
+
+// Filter per provinsi
+const dkiCitiesOnly = getCitiesOnly('31'); // 5 Kota
+const dkiRegenciesOnly = getRegenciesOnly('31'); // 1 Kabupaten (Kepulauan Seribu)
+const jabarRegencies = getRegenciesOnly('32'); // 18 Kabupaten
 ```
 
-### Mencari Kota
+### Mencari Kota / Kabupaten
 
 ```typescript
-import { findCityByName } from '@raxza-tech/indonesia-regions';
+import { findCityByName, findCitiesByName } from '@raxza-tech/indonesia-regions';
 
+// 1. Mencari kecocokan pertama
 const result = findCityByName('Bandung');
-console.log(result.province.name); // 'Jawa Barat'
-console.log(result.city.type); // 'CITY'
+console.log(result?.province.name); // 'Jawa Barat'
+console.log(result?.city.name);     // 'Kabupaten Bandung'
+
+// 2. Mencari semua kecocokan (menangani homonim seperti Kab & Kota Bandung)
+const matches = findCitiesByName('Bandung');
+matches.forEach((item) => {
+  console.log(`${item.city.name} (${item.city.type}) di ${item.province.name}`);
+});
+// 'Kabupaten Bandung (REGENCY) di Jawa Barat'
+// 'Kota Bandung (CITY) di Jawa Barat'
 ```
 
-### Raw Data
+### Raw Data & Data per Gugus Pulau
 
 ```typescript
-import { indonesiaRegions } from '@raxza-tech/indonesia-regions';
+import {
+  indonesiaRegions,
+  sumatera,
+  jawa,
+  baliNusra,
+  kalimantan,
+  sulawesi,
+  maluku,
+  papua
+} from '@raxza-tech/indonesia-regions';
 
-// Akses langsung ke data
+// Akses langsung seluruh data wilayah
 for (const province of indonesiaRegions) {
-  console.log(`${province.name} (${province.code})`);
-  for (const city of province.cities) {
-    console.log(`  - ${city.name} (${city.type})`);
-  }
+  console.log(`${province.name} (${province.code}) - ${province.cities.length} kab/kota`);
 }
-```
 
-### Data per Pulau
-
-```typescript
-import { sumatera, jawa, kalimantan } from '@raxza-tech/indonesia-regions';
-
-// Data provinsi di pulau Jawa
+// Data provinsi di pulau Jawa (6 provinsi)
 for (const province of jawa) {
   console.log(province.name);
+}
+
+// Data provinsi di pulau Papua (6 provinsi DOB)
+for (const province of papua) {
+  console.log(`${province.name} (${province.code})`);
 }
 ```
 
@@ -98,31 +126,41 @@ enum CityType {
 interface City {
   name: string;
   type: CityType;
+  code?: string;        // Kode wilayah BPS / Kemendagri (opsional)
 }
 
 interface Province {
   name: string;
-  code: string;  // Kode BPS
+  code: string;         // Kode provinsi (BPS / Kemendagri)
   cities: City[];
 }
 ```
 
 ### Functions
 
-| Function | Description |
-|----------|-------------|
-| `getProvinces()` | Mendapatkan semua provinsi |
-| `findProvinceByCode(code)` | Mencari provinsi berdasarkan kode BPS |
-| `findProvinceByName(name)` | Mencari provinsi berdasarkan nama |
-| `getCitiesByProvinceCode(code)` | Mendapatkan kota/kabupaten suatu provinsi |
-| `findCityByName(name)` | Mencari kota/kabupaten berdasarkan nama |
-| `getCitiesOnly(provinceCode?)` | Filter hanya kota (opsional per provinsi) |
-| `getRegenciesOnly(provinceCode?)` | Filter hanya kabupaten (opsional per provinsi) |
+| Function | Description | Performa |
+|----------|-------------|----------|
+| `getProvinces()` | Mendapatkan seluruh 38 provinsi | $O(1)$ |
+| `findProvinceByCode(code)` | Mencari provinsi berdasarkan kode wilayah (misal `'31'`, `'96'`) | $O(1)$ indexed |
+| `findProvinceByName(name)` | Mencari provinsi berdasarkan nama (case-insensitive) | $O(1)$ indexed |
+| `getCitiesByProvinceCode(code)` | Mendapatkan seluruh kota/kabupaten di suatu provinsi | $O(1)$ |
+| `findCityByName(name)` | Mencari kota/kabupaten pertama berdasarkan nama | $O(N)$ |
+| `findCitiesByName(name)` | Mencari seluruh kota/kabupaten yang cocok dengan nama (mendukung homonim) | $O(N)$ |
+| `getCitiesOnly(provinceCode?)` | Filter hanya kota (opsional per provinsi, default: seluruh 98 kota) | $O(1)$ / $O(M)$ |
+| `getRegenciesOnly(provinceCode?)` | Filter hanya kabupaten (opsional per provinsi, default: seluruh 416 kabupaten) | $O(1)$ / $O(M)$ |
 
+## Data Summary (Standar Resmi Terbaru)
 
-## Data Source
-
-Data wilayah mengacu pada kode BPS (Badan Pusat Statistik) Indonesia.
+| Wilayah | Provinsi | Kabupaten | Kota | Total Daerah |
+|---------|:--------:|:---------:|:----:|:------------:|
+| Sumatera | 10 | 120 | 34 | 154 |
+| Jawa | 6 | 85 | 34 | 119 |
+| Bali & Nusa Tenggara | 3 | 37 | 4 | 41 |
+| Kalimantan | 5 | 47 | 9 | 56 |
+| Sulawesi | 6 | 70 | 11 | 81 |
+| Maluku | 2 | 17 | 4 | 21 |
+| Papua | 6 | 40 | 2 | 42 |
+| **Total Indonesia** | **38** | **416** | **98** | **514** |
 
 ## License
 

@@ -158,6 +158,7 @@ export const sumatera = [
       { name: "Kabupaten Ogan Komering Ulu", type: CityType.REGENCY },
       { name: "Kabupaten Ogan Komering Ulu Selatan", type: CityType.REGENCY },
       { name: "Kabupaten Ogan Komering Ulu Timur", type: CityType.REGENCY },
+      { name: "Kabupaten Penukal Abab Lematang Ilir", type: CityType.REGENCY },
       { name: "Kota Lubuklinggau", type: CityType.CITY },
       { name: "Kota Pagar Alam", type: CityType.CITY },
       { name: "Kota Palembang", type: CityType.CITY },
@@ -199,6 +200,19 @@ export const sumatera = [
       { name: "Kabupaten Way Kanan", type: CityType.REGENCY },
       { name: "Kota Bandar Lampung", type: CityType.CITY },
       { name: "Kota Metro", type: CityType.CITY },
+    ],
+  },
+  {
+    name: "Kepulauan Bangka Belitung",
+    code: "19",
+    cities: [
+      { name: "Kabupaten Bangka", type: CityType.REGENCY },
+      { name: "Kabupaten Bangka Barat", type: CityType.REGENCY },
+      { name: "Kabupaten Bangka Selatan", type: CityType.REGENCY },
+      { name: "Kabupaten Bangka Tengah", type: CityType.REGENCY },
+      { name: "Kabupaten Belitung", type: CityType.REGENCY },
+      { name: "Kabupaten Belitung Timur", type: CityType.REGENCY },
+      { name: "Kota Pangkalpinang", type: CityType.CITY },
     ],
   },
 ];

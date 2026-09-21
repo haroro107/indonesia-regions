@@ -16,6 +16,8 @@ export interface City {
   name: string;
   /** Tipe wilayah (Kabupaten atau Kota) */
   type: CityType;
+  /** Kode kota/kabupaten (BPS/Kemendagri) */
+  code?: string;
 }
 
 /**

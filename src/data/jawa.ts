@@ -5,6 +5,7 @@ export const jawa = [
     name: "DKI Jakarta",
     code: "31",
     cities: [
+      { name: "Kabupaten Administrasi Kepulauan Seribu", type: CityType.REGENCY },
       { name: "Kota Jakarta Selatan", type: CityType.CITY },
       { name: "Kota Jakarta Timur", type: CityType.CITY },
       { name: "Kota Jakarta Pusat", type: CityType.CITY },
