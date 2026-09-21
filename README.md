@@ -1,4 +1,4 @@
-# @raxza-tech/indonesia-regions
+# indonesia-regions
 
 Data wilayah Indonesia lengkap: **38 Provinsi** dan **514 Kabupaten/Kota** (416 Kabupaten, 98 Kota) dengan tipe data TypeScript dan indexing berkecepatan tinggi ($O(1)$).
 
@@ -7,11 +7,11 @@ Sumber data resmi mengacu pada **Kemendagri (Keputusan Menteri Dalam Negeri)** d
 ## Install
 
 ```bash
-npm install @raxza-tech/indonesia-regions
+npm install indonesia-regions
 # atau
-yarn add @raxza-tech/indonesia-regions
+yarn add indonesia-regions
 # atau
-pnpm add @raxza-tech/indonesia-regions
+pnpm add indonesia-regions
 ```
 
 ## Penggunaan
@@ -25,7 +25,7 @@ import {
   getProvinces,
   findProvinceByCode,
   getCitiesByProvinceCode
-} from '@raxza-tech/indonesia-regions';
+} from 'indonesia-regions';
 
 // Mendapatkan semua provinsi (38 provinsi)
 const provinces = getProvinces();
@@ -48,7 +48,7 @@ console.log(dkiCities);
 ### Filter Berdasarkan Tipe
 
 ```typescript
-import { getCitiesOnly, getRegenciesOnly } from '@raxza-tech/indonesia-regions';
+import { getCitiesOnly, getRegenciesOnly } from 'indonesia-regions';
 
 // Semua Kota di Indonesia (98 Kota)
 const allCities = getCitiesOnly();
@@ -67,7 +67,7 @@ const jabarRegencies = getRegenciesOnly('32'); // 18 Kabupaten
 ### Mencari Kota / Kabupaten
 
 ```typescript
-import { findCityByName, findCitiesByName } from '@raxza-tech/indonesia-regions';
+import { findCityByName, findCitiesByName } from 'indonesia-regions';
 
 // 1. Mencari kecocokan pertama
 const result = findCityByName('Bandung');
@@ -95,7 +95,7 @@ import {
   sulawesi,
   maluku,
   papua
-} from '@raxza-tech/indonesia-regions';
+} from 'indonesia-regions';
 
 // Akses langsung seluruh data wilayah
 for (const province of indonesiaRegions) {

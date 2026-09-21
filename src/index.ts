@@ -1,12 +1,12 @@
 /**
- * @raxza-tech/indonesia-regions
+ * indonesia-regions
  *
  * Data wilayah Indonesia (Provinsi & Kota/Kabupaten)
  * Sumber data: BPS (Badan Pusat Statistik) & Kemendagri
  *
  * @example
  * ```ts
- * import { indonesiaRegions, CityType, findProvinceByCode } from '@raxza-tech/indonesia-regions';
+ * import { indonesiaRegions, CityType, findProvinceByCode } from 'indonesia-regions';
  *
  * const dki = findProvinceByCode('31');
  * console.log(dki?.name); // 'DKI Jakarta'

@@ -1,5 +1,5 @@
 {
-  "name": "@raxza-tech/indonesia-regions",
+  "name": "indonesia-regions",
   "version": "1.0.0",
   "description": "Data wilayah Indonesia (Provinsi & Kota/Kabupaten) untuk keperluan organisasi",
   "type": "module",
@@ -37,6 +37,9 @@
   ],
   "author": "",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "typescript": "^5.3.3"
