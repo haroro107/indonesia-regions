@@ -1,0 +1,43 @@
+{
+  "name": "@raxza-tech/indonesia-regions",
+  "version": "1.0.0",
+  "description": "Data wilayah Indonesia (Provinsi & Kota/Kabupaten) untuk keperluan organisasi",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./data": {
+      "types": "./dist/data/index.d.ts",
+      "import": "./dist/data/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "indonesia",
+    "regions",
+    "provinces",
+    "cities",
+    "kabupaten",
+    "kota",
+    "wilayah",
+    "data"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}
